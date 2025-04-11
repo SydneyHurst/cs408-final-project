@@ -22,6 +22,7 @@ Stretch Goals?
 - A lot of the features I want are tough to do with AWS, but if I were to move this to a traditional PHP database setup; I would love to add things such as player banks (where different items in different categories can be stored). 
 - With AWS; I think adding an "owner" field to character data to sort by who plays the character would be fun. A page could be used to show a library of characters based on who owns them.
 - The ability to add character images; Im not entirely sure if AWS supports such a function for free so might not be possible with AWS.
+- This is one im most interested in achieving... I would like to add a possible password lock to some pages. Some arpg teams (I know this as I help one) have certain tasks where those rolling numbers are top secret even in the team, only certain people can know them. So adding a password access to the page would be ideal. Creating a script that can handle a password securely is an interesting challenge I wish to try (Ive done it in php before but without such a complex set up its different)
 
 ## Project Wireframe
 
