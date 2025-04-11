@@ -28,4 +28,6 @@ Stretch Goals?
 
 This is only the index page, because many of the side pages are very similar or something ive not thought the look of for yet. But the index page can have a small welcome or info blurb and all characters listed with their info. I want this info listed pretty and not in a table.
 
+(color not added because im insanely indecisive with color and other formatting)
+
 ![wireframe](wireframe.png)
