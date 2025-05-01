@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Character Masterlist</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Electrolize' rel='stylesheet'>
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="/img/Cat_Silhouette_PNG_Transparent_Clip_Art_Image.png" width="99">
+    </div>
+    <h1>Purrfect Rollers and Guides</h1>
+  </div>
+  
+  <ul>
+    <li><a href="#home">Home</a></li>
+    
+    <li class="dropdown">
+      <a href="#" class="dropbtn">Characters</a>
+      <div class="dropdown-content">
+        <a href="#">Create/Edit Character</a>
+        <a href="#">Character Masterlist</a>
+      </div>
+    </li>
+    <li><a href="#contact">EXP Calculator</a></li>
+    <li><a href="#about">Activity Roller</a></li>
+  </ul>
+  
+  <div class="content">
+  <h1>Character List</h1>
+  <div id="character-container">Loading...</div>
+</div>
+
+  <script>
+    fetch('https://nbsaqqdmvj.execute-api.us-east-2.amazonaws.com/characters')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('character-container');
+        container.innerHTML = ''; // Clear "Loading..."
+
+        if (!Array.isArray(data) || data.length === 0) {
+          container.textContent = 'No characters found.';
+          return;
+        }
+
+        data.sort((a, b) => Number(a.id) - Number(b.id));
+
+        data.forEach(char => {
+        const card = document.createElement('div');
+        card.className = 'character-card';
+
+        card.innerHTML = `
+        <h3>${char.id} - ${char.name}</h3>
+        <p>${char.health}</p>
+        <p>${char.exp} - ${char.rank}</p>
+      `;
+
+      container.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        document.getElementById('character-container').textContent = 'Failed to load characters.';
+      });
+  </script>
+</body>
+
+</html>

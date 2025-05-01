@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Character</title>
+  <style>
+    form {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 12px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Edit Character</h1>
+
+  <div style="text-align:center;">
+    <input type="text" id="charIdInput" placeholder="Enter Character ID" />
+    <button onclick="loadCharacter()">Load Character</button>
+  </div>
+
+  <form id="editForm" style="display:none;" onsubmit="submitForm(event)">
+    <label>ID (not editable)</label>
+    <input type="text" id="charId" readonly />
+
+    <label>Name</label>
+    <input type="text" id="name" required />
+
+    <label>Health</label>
+    <input type="text" id="health" required />
+
+    <label>EXP</label>
+    <input type="number" id="exp" required />
+
+    <label>Rank</label>
+    <input type="text" id="rank" required />
+
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <p id="status" style="text-align:center; color:green;"></p>
+
+  <script>
+    const API_BASE = "https://nbsaqqdmvj.execute-api.us-east-2.amazonaws.com";
+
+    async function loadCharacter() {
+        //Grab character
+      const id = document.getElementById("charIdInput").value.trim();
+      if (!id) return alert("Enter a character ID");
+
+      const res = await fetch(`${API_BASE}/characters/${id}`);
+      if (!res.ok) return alert("Character not found");
+
+      const char = await res.json();
+
+      // Fill form
+      document.getElementById("charId").value = char.id;
+      document.getElementById("name").value = char.name;
+      document.getElementById("health").value = char.health;
+      document.getElementById("exp").value = char.exp;
+      document.getElementById("rank").value = char.rank;
+
+      document.getElementById("editForm").style.display = "block";
+      document.getElementById("status").textContent = "";
+    }
+
+    async function submitForm(event) {
+      event.preventDefault();
+
+      const char = {
+        id: document.getElementById("charId").value,
+        name: document.getElementById("name").value,
+        health: document.getElementById("health").value,
+        exp: Number(document.getElementById("exp").value),
+        rank: document.getElementById("rank").value,
+        items: [] // you could allow editing this too later
+      };
+
+      const res = await fetch(`${API_BASE}/characters`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(char)
+      });
+
+      if (res.ok) {
+        document.getElementById("status").textContent = "Character updated successfully!";
+      } else {
+        const error = await res.text();
+        document.getElementById("status").textContent = "Error: " + error;
+        document.getElementById("status").style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>

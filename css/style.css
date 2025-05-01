@@ -1,4 +1,155 @@
 h1{
-  border-color: #d3e644;
-  border-style: dashed;
+  font-size: 48px;
+  font-family: 'Electrolize';
+}
+
+.logo{
+  display: inline-block;
+  float:left;
+}
+
+body{
+  padding:0%;
+  margin:0%;
+  background-color: #797979;
+
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* or space-between if you want space between logo and text */
+  padding-top: 20px;
+  gap: 15px; /* optional: space between logo and header text */
+}
+
+.content {
+    
+  background-color: rgba(43, 48, 64, 0.8);
+  width: 65%;
+  height: 100vh;
+  margin: auto;
+  padding: 2% 75px;
+    font-size: 13px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #bcd2e8; 
+    line-height: 1.5;
+    text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding: 0% 75px;
+  overflow: hidden;
+  background-color: #333;
+  width: 65%;
+  margin: auto;
+}
+
+li {
+  float: left;
+  
+}
+
+li a, .dropbtn {
+  display: block;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  padding: 20px 36px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: #111;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.button {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  padding: 5%;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #04AA6D;
+  width: 90%;
+}
+
+.button1:hover {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.col{
+  display:inline-block;
+  width: 42%;
+  vertical-align: top;
+  padding: 3%;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.character-card {
+  display:inline-block;
+  background-color: #9ba2c7;
+  border: 1px solid #363749;
+  border-radius: 12px;
+  padding: 15px 5px;
+  width: 250px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.character-card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color:#363749;
+}
+
+.character-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
 }
