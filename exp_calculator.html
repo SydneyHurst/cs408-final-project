@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Character</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Electrolize' rel='stylesheet'>
+  
+</head>
+
+
+<body>
+    <div class="header">
+        <div class="logo">
+          <img src="/img/Cat_Silhouette_PNG_Transparent_Clip_Art_Image.png" width="99">
+        </div>
+        <h1>Purrfect Rollers and Guides</h1>
+      </div>
+      
+      <ul>
+        <li><a href="index.html">Home</a></li>
+    
+    <li class="dropdown">
+      <a class="dropbtn">Characters</a>
+      <div class="dropdown-content">
+        <a href="create_edit_character.html">Create/Edit Character</a>
+        <a href="character_masterlist.html">Character Masterlist</a>
+      </div>
+    </li>
+    <li><a href="exp_calculator.html">EXP Calculator</a></li>
+    <li><a href="activity_roller.html">Activity Roller</a></li>
+      </ul>
+    <div class="content">
+  <h1>EXP Calculator</h1>
+
+  <div class="box">
+    <label>Character Depicted (1 EXP)<input type="checkbox" id="charOnly" onchange="syncOptions()"></label>
+    <label>Character Depicted with Background (3 EXP)<input type="checkbox" id="charBg" onchange="syncOptions()"> </label>
+    <label>Activity (+2 EXP)<input type="checkbox" id="activity" onchange="calculateExp()"> </label>
+    <label>Done by Owner (+2 EXP)<input type="checkbox" id="owner" onchange="calculateExp()"></label>
+
+    <div id="total">Total EXP: 0</div>
+  </div>
+
+  <script>
+    const API_BASE = "https://nbsaqqdmvj.execute-api.us-east-2.amazonaws.com";
+
+    function syncOptions() {
+      const charOnly = document.getElementById("charOnly");
+      const charBg = document.getElementById("charBg");
+
+      // Mutually exclusive logic
+      if (charOnly.checked) charBg.checked = false;
+      if (charBg.checked) charOnly.checked = false;
+
+      calculateExp();
+    }
+
+    function calculateExp() {
+      let total = 0;
+      if (document.getElementById("charOnly").checked) total += 1;
+      if (document.getElementById("charBg").checked) total += 3;
+      if (document.getElementById("activity").checked) total += 2;
+      if (document.getElementById("owner").checked) total += 2;
+
+      document.getElementById("total").textContent = `Total EXP: ${total}`;
+    }
+
+    async function applyExp() {
+      const id = document.getElementById("charId").value.trim();
+      if (!id) return alert("Enter a character ID");
+
+      let total = 0;
+      if (document.getElementById("charOnly").checked) total += 1;
+      if (document.getElementById("charBg").checked) total += 3;
+      if (document.getElementById("activity").checked) total += 2;
+      if (document.getElementById("owner").checked) total += 2;
+
+      if (total === 0) return alert("No EXP to apply");
+
+
+      const resultDiv = document.getElementById("result");
+      if (res.ok) {
+        resultDiv.textContent = `Successfully added ${total} EXP to character ${id}.`;
+        resultDiv.style.color = "green";
+      } else {
+        const err = await res.text();
+        resultDiv.textContent = `Error: ${err}`;
+        resultDiv.style.color = "red";
+      }
+    }
+
+    // Run once on load to ensure sync
+    calculateExp();
+  </script>
+</body>
+</html>

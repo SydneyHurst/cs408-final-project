@@ -19,17 +19,17 @@
   </div>
   
   <ul>
-    <li><a href="#home">Home</a></li>
+    <li><a href="index.html">Home</a></li>
     
     <li class="dropdown">
-      <a href="#" class="dropbtn">Characters</a>
+      <a class="dropbtn">Characters</a>
       <div class="dropdown-content">
-        <a href="#">Create/Edit Character</a>
-        <a href="#">Character Masterlist</a>
+        <a href="create_edit_character.html">Create/Edit Character</a>
+        <a href="character_masterlist.html">Character Masterlist</a>
       </div>
     </li>
-    <li><a href="#contact">EXP Calculator</a></li>
-    <li><a href="#about">Activity Roller</a></li>
+    <li><a href="exp_calculator.html">EXP Calculator</a></li>
+    <li><a href="activity_roller.html">Activity Roller</a></li>
   </ul>
   
   <div class="content">
@@ -57,8 +57,9 @@
 
         card.innerHTML = `
         <h3>${char.id} - ${char.name}</h3>
-        <p>${char.health}</p>
-        <p>${char.exp} - ${char.rank}</p>
+        <p><b>Status</b>: ${char.health}</p>
+        <p><b>EXP</b>: ${char.exp}</p>
+        <p><b>Rank</b>: ${char.rank}</p>
       `;
 
       container.appendChild(card);

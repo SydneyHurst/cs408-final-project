@@ -31,3 +31,12 @@ This is only the index page, because many of the side pages are very similar or 
 (color not added because im insanely indecisive with color and other formatting)
 
 ![wireframe](wireframe.png)
+
+
+
+TODO:
+- comments and documentation
+- Finish css
+- Make non JS reliant pages
+- Pretty up EXP calculator and item roller
+
