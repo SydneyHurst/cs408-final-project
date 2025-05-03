@@ -19,78 +19,83 @@
       
       <ul>
         <li><a href="index.html">Home</a></li>
-    
-    <li class="dropdown">
-      <a class="dropbtn">Characters</a>
-      <div class="dropdown-content">
-        <a href="create_edit_character.html">Create/Edit Character</a>
-        <a href="character_masterlist.html">Character Masterlist</a>
-      </div>
-    </li>
-    <li><a href="exp_calculator.html">EXP Calculator</a></li>
-    <li><a href="activity_roller.html">Activity Roller</a></li>
+        
+        <li class="dropdown">
+          <a class="dropbtn">Characters</a>
+          <div class="dropdown-content">
+            <a href="create_edit_character.html">Create/Edit Character</a>
+            <a href="character_masterlist.html">Character Masterlist</a>
+            <a href="character_guide.html">Character Guide</a>
+          </div>
+        </li>
+        <li><a href="exp_calculator.html">EXP Calculator</a></li>
+        <li><a href="exp_guide.html">EXP Guide</a></li>
+        <li><a href="activity_roller.html">Activity Roller</a></li>
+        <li><a href="activity_guide.html">Activity Guide</a></li>
       </ul>
     <div class="content">
   
 
   <div class="col">
     <h1>Edit Character</h1>
-  <div style="text-align:center;">
-    <input type="text" id="charIdInput" placeholder="Enter Character ID" />
-    <button onclick="loadCharacter()">Load Character</button>
+
+    <div style="text-align:center;">
+      <input type="text" id="charIdInput" placeholder="Enter Character ID" />
+      <button onclick="loadCharacter()">Load Character</button>
+    </div>
+
+    <form id="editForm" style="display:none;" onsubmit="submitEdit(event)">
+      <label>ID (Dont edit)</label>
+      <input type="text" id="charId" readonly />
+
+      <label>Name</label>
+      <input type="text" id="name" required />
+
+      <label>Health</label>
+      <input type="text" id="health" required />
+
+      <label>EXP</label>
+      <input type="number" id="exp" required />
+
+      <label>Rank</label>
+      <input type="text" id="rank" required />
+
+      <button type="submit">Save</button>
+      <button type="button" class="delete" onclick="deleteCharacter()">Delete</button>
+    </form>
+
+    <div class="status" id="editStatus"></div>
   </div>
 
-  <form id="editForm" style="display:none;" onsubmit="submitEdit(event)">
-    <label>ID (not editable)</label>
-    <input type="text" id="charId" readonly />
-
-    <label>Name</label>
-    <input type="text" id="name" required />
-
-    <label>Health</label>
-    <input type="text" id="health" required />
-
-    <label>EXP</label>
-    <input type="number" id="exp" required />
-
-    <label>Rank</label>
-    <input type="text" id="rank" required />
-
-    <button type="submit">Save Changes</button>
-    <button type="button" class="delete" onclick="deleteCharacter()">Delete</button>
-  </form>
-
-  <div class="status" id="editStatus"></div>
-</div>
-
   <div class="col">
-  <!-- Create Character -->
-  <h1>Create New Character</h1>
-  <form id="createForm" onsubmit="submitCreate(event)">
-    <label>ID</label>
-    <input type="text" id="newId" required />
+    <!-- Create Character -->
+    <h1>Create New Character</h1>
+    <form id="createForm" onsubmit="submitCreate(event)">
+      <label>ID</label>
+      <input type="text" id="newId" required />
 
-    <label>Name</label>
-    <input type="text" id="newName" required />
+      <label>Name</label>
+      <input type="text" id="newName" required />
 
-    <label>Health</label>
-    <input type="text" id="newHealth" required />
+      <label>Health</label>
+      <input type="text" id="newHealth" required />
 
-    <label>EXP</label>
-    <input type="number" id="newExp" required />
+      <label>EXP</label>
+      <input type="number" id="newExp" required />
 
-    <label>Rank</label>
-    <input type="text" id="newRank" required />
+      <label>Rank</label>
+      <input type="text" id="newRank" required />
 
-    <button type="submit">Create Character</button>
-    <div class="status" id="createStatus"></div>
-  </form>
-</div>
+      <button type="submit">Create Character</button>
+      <div class="status" id="createStatus"></div>
+    </form>
+  </div>
   
 
   <script>
     const API_BASE = "https://nbsaqqdmvj.execute-api.us-east-2.amazonaws.com";
 
+    //grab character based on ID
     async function loadCharacter() {
       const id = document.getElementById("charIdInput").value.trim();
       if (!id) return alert("Enter a character ID");
@@ -123,7 +128,6 @@
         health: document.getElementById("health").value,
         exp: Number(document.getElementById("exp").value),
         rank: document.getElementById("rank").value,
-        items: [] // optional
       };
 
       const res = await fetch(`${API_BASE}/characters`, {
@@ -137,6 +141,7 @@
         : "Error updating character.";
     }
 
+    //Delete character
     async function deleteCharacter() {
       const id = document.getElementById("charId").value;
       if (!confirm(`Are you sure you want to delete character ${id}?`)) return;
@@ -152,6 +157,7 @@
       document.getElementById("editForm").style.display = "none";
     }
 
+    //create character
     async function submitCreate(event) {
       event.preventDefault();
 

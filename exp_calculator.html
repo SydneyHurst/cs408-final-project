@@ -8,7 +8,6 @@
   
 </head>
 
-
 <body>
     <div class="header">
         <div class="logo">
@@ -19,20 +18,41 @@
       
       <ul>
         <li><a href="index.html">Home</a></li>
-    
-    <li class="dropdown">
-      <a class="dropbtn">Characters</a>
-      <div class="dropdown-content">
-        <a href="create_edit_character.html">Create/Edit Character</a>
-        <a href="character_masterlist.html">Character Masterlist</a>
-      </div>
-    </li>
-    <li><a href="exp_calculator.html">EXP Calculator</a></li>
-    <li><a href="activity_roller.html">Activity Roller</a></li>
+        
+        <li class="dropdown">
+          <a class="dropbtn">Characters</a>
+          <div class="dropdown-content">
+            <a href="create_edit_character.html">Create/Edit Character</a>
+            <a href="character_masterlist.html">Character Masterlist</a>
+            <a href="character_guide.html">Character Guide</a>
+          </div>
+        </li>
+        <li><a href="exp_calculator.html">EXP Calculator</a></li>
+        <li><a href="exp_guide.html">EXP Guide</a></li>
+        <li><a href="activity_roller.html">Activity Roller</a></li>
+        <li><a href="activity_guide.html">Activity Guide</a></li>
       </ul>
-    <div class="content">
+
+<div class="content">     
   <h1>EXP Calculator</h1>
 
+  <div class="col">
+  <p>Characters earn exp for each time you depict them; use the calculator below to see 
+    how much they earn!
+  </p>
+  <p>
+    You can select either Character depicted OR character depicted with background. You cannot
+    select both.
+  </p>
+
+  <p>Confused by EXP? Read here:</p>
+  <a href="exp_guide.html">
+    <button class="button button1">EXP Guide</button>
+  </a>
+</div>
+
+<div class="col">
+<!-- EXP Calculator -->
   <div class="box">
     <label>Character Depicted (1 EXP)<input type="checkbox" id="charOnly" onchange="syncOptions()"></label>
     <label>Character Depicted with Background (3 EXP)<input type="checkbox" id="charBg" onchange="syncOptions()"> </label>
@@ -41,21 +61,21 @@
 
     <div id="total">Total EXP: 0</div>
   </div>
+</div>
 
   <script>
-    const API_BASE = "https://nbsaqqdmvj.execute-api.us-east-2.amazonaws.com";
-
     function syncOptions() {
       const charOnly = document.getElementById("charOnly");
       const charBg = document.getElementById("charBg");
 
-      // Mutually exclusive logic
+      // Either one or the other can be checked, not both
       if (charOnly.checked) charBg.checked = false;
       if (charBg.checked) charOnly.checked = false;
 
       calculateExp();
     }
 
+    //Calculate exp
     function calculateExp() {
       let total = 0;
       if (document.getElementById("charOnly").checked) total += 1;
@@ -66,32 +86,8 @@
       document.getElementById("total").textContent = `Total EXP: ${total}`;
     }
 
-    async function applyExp() {
-      const id = document.getElementById("charId").value.trim();
-      if (!id) return alert("Enter a character ID");
-
-      let total = 0;
-      if (document.getElementById("charOnly").checked) total += 1;
-      if (document.getElementById("charBg").checked) total += 3;
-      if (document.getElementById("activity").checked) total += 2;
-      if (document.getElementById("owner").checked) total += 2;
-
-      if (total === 0) return alert("No EXP to apply");
-
-
-      const resultDiv = document.getElementById("result");
-      if (res.ok) {
-        resultDiv.textContent = `Successfully added ${total} EXP to character ${id}.`;
-        resultDiv.style.color = "green";
-      } else {
-        const err = await res.text();
-        resultDiv.textContent = `Error: ${err}`;
-        resultDiv.style.color = "red";
-      }
-    }
-
-    // Run once on load to ensure sync
     calculateExp();
   </script>
+
 </body>
 </html>

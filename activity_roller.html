@@ -11,34 +11,44 @@
     <div class="header">
         <div class="logo">
             <img src="/img/Cat_Silhouette_PNG_Transparent_Clip_Art_Image.png" width="99">
-          </div>
-          <h1>Purrfect Rollers and Guides</h1>
         </div>
+        <h1>Purrfect Rollers and Guides</h1>
+    </div>
         
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          
-          <li class="dropdown">
-            <a class="dropbtn">Characters</a>
-            <div class="dropdown-content">
-              <a href="create_edit_character.html">Create/Edit Character</a>
-              <a href="character_masterlist.html">Character Masterlist</a>
-            </div>
-          </li>
-          <li><a href="exp_calculator.html">EXP Calculator</a></li>
-          <li><a href="activity_roller.html">Activity Roller</a></li>
-        </ul>
-        <div class="content">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        
+        <li class="dropdown">
+          <a class="dropbtn">Characters</a>
+          <div class="dropdown-content">
+            <a href="create_edit_character.html">Create/Edit Character</a>
+            <a href="character_masterlist.html">Character Masterlist</a>
+            <a href="character_guide.html">Character Guide</a>
+          </div>
+        </li>
+        <li><a href="exp_calculator.html">EXP Calculator</a></li>
+        <li><a href="exp_guide.html">EXP Guide</a></li>
+        <li><a href="activity_roller.html">Activity Roller</a></li>
+        <li><a href="activity_guide.html">Activity Guide</a></li>
+      </ul>
+
+    <div class="content">
         <div class="col">
-  <h1>Item Roller</h1>
+        <h1>Item Roller</h1>
+        <p>Characters not listed as Healthy will incur a 10% penalty to their roll.
+            This works by removing 10 from the rolled number to determine the rarity of the item.
+        </p>
+        <p>This roller only rolls Common, Uncommon, and Rare items. Theoretically it could be edited
+            to roll specific items within those rarities.
+        </p>
 
-  <div class="box">
-    <label><input type="checkbox" id="sick"> Character is sick (-10%)</label>
-    <button onclick="rollItems()">Roll Items</button>
+        <div class="box">
+            <label><input type="checkbox" id="sick"> Character is sick or injured(-10%)</label>
+            <button onclick="rollItems()">Roll Items</button>
 
-    <div id="results" class="results"></div>
-  </div>
-</div>
+            <div id="results" class="results"></div>
+        </div>
+    </div>
   <script>
     function getRarity(value) {
       if (value <= 50) return "Common";
@@ -51,8 +61,10 @@
       const resultsDiv = document.getElementById("results");
       resultsDiv.innerHTML = "";
 
-      const itemCount = Math.floor(Math.random() * 3) + 1; // 1–3 items
+      //Roll 1-3 items by default
+      const itemCount = Math.floor(Math.random() * 3) + 1; 
 
+      //check rarity
       for (let i = 1; i <= itemCount; i++) {
         let roll = Math.floor(Math.random() * 100) + 1;
         let adjusted = isSick ? Math.max(1, roll - 10) : roll;
